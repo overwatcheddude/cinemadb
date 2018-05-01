@@ -30,12 +30,22 @@ function displayJSON(route, collection, filter)
 	});
 }
 
-app.post("/addmovie", (req, res) => {
+//POST method
+app.post("/addmovie:/:name/:genre", (req, res) => {
 	mongoClient.connect(mongoServerURL, function(err, db) {
+		//If there are any errors, then display error message in the console.
 		if (err) console.log(err.message);
 
+		//Connect to a database called 'cinemadb'.
 		var db = db.db("cinemadb");
-		var myobj = req.body;
+		
+		//Read from the request parameters.
+		var name = req.params.name;
+		var genre = req.params.genre;
+		
+		//Places name and genre into a variable called my object.
+		var myobj = {name, genre};
+		
 		db.collection("movies").insertOne(myobj, function(err, res) {
 			if (err) console.log(err.message);
 
