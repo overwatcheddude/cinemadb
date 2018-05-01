@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Cinema DB
+        </title>
+		<script>
+            function responseHandling()
+            {				
+                //Used for debugging
+                console.log(this.responseText);
+
+                //Convert responseText to a JS object
+                let jsonArray = JSON.parse(this.responseText);
+
+                //Read items from the webpage.
+                let divItems = document.getElementById("divItems");
+                let countItems = document.getElementById("countItems");
+
+                //Write the items count into countItems div.
+                countItems.innerHTML = "We have found " + jsonArray.length + " items.";
+
+                for (let item of jsonArray)
+                {
+                    let p = document.createElement("p");
+					
+                    let itemString = item.name;
+                    let pText = document.createTextNode(itemString);
+                    p.appendChild(pText);
+
+                    //Add the p to the itemDiv
+                    divItems.appendChild(p);
+                }
+            }
+            
+            function sendToDB()
+            {
+                let httpRequest = new XMLHttpRequest();
+			    httpRequest.open("POST", "http://localhost:7878/addmovie");
+                httpRequest.send();
+            }
+
+            let httpRequest = new XMLHttpRequest();
+            httpRequest.addEventListener("load", responseHandling);
+			httpRequest.open("GET", "http://localhost:7878/");
+            httpRequest.send();
+            //<button onclick="sendToDB();">Send to DB</button>
+        </script>
+    </head>
+    <body>
+        <div id="countItems"></div>
+        <div id="divItems"></div>
+        <form method="post" action="http://localhost:7878/addmovie">
+            <label>Add your movie.</label><br>
+            <input type="text" name="txtName" placeholder="Type the movie name here." required>
+            <input type="submit"></input>
+          </form>
+    </body>
+</html>
