@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "CIA3403_Cinema_Project.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"start": "node CIA3403_Cinema_Project.js"
   },
   "author": "",
   "license": "ISC",
