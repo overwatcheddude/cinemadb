@@ -38,13 +38,13 @@
 			//XMLHttpRequest for GET.
 			let httpRequest = new XMLHttpRequest();
 			httpRequest.addEventListener("load", responseHandling);
-			httpRequest.open("GET", "http://localhost:7878/");
+			httpRequest.open("GET", "http://cinemadb.eu-4.evennode.com/");
 			httpRequest.send();
 			
 			function deleteMovie(name)
 			{
 				let httpRequest = new XMLHttpRequest();
-				httpRequest.open("DELETE", "http://localhost:7878/deletemovie/" + name);
+				httpRequest.open("DELETE", "http://cinemadb.eu-4.evennode.com/deletemovie/" + name);
 				httpRequest.send();
 			}
 			
@@ -53,7 +53,7 @@
 				var name = document.getElementById("name").value;
 				var newName = document.getElementById("newName").value;
 				let httpRequest = new XMLHttpRequest();
-				httpRequest.open("PUT", "http://localhost:7878/updatemovie/" + name + "/" + newName);
+				httpRequest.open("PUT", "http://cinemadb.eu-4.evennode.com/updatemovie/" + name + "/" + newName);
 				httpRequest.send();
 				return false;
 			}
@@ -84,7 +84,7 @@
 <table style="border-style: solid; border-width: 1px; background-color: #eee">
 	<tr>
 		<td>
-			<form method="post" action="http://localhost:7878/addmovie" onsubmit="location.reload();">
+			<form method="post" action="http://cinemadb.eu-4.evennode.com/addmovie" onsubmit="location.reload();">
 				<label>Add your movie.</label><br>
 				<input type="text" name="name" placeholder="Type the movie name here." required>
 				<input type="text" name="genre" placeholder="Insert genre here." required>
@@ -96,7 +96,7 @@
 	</tr>
 	<tr>
 		<td>
-			<form method="post" action="http://localhost:7878/updatemovie" onsubmit="return updateMovie();">
+			<form method="post" action="http://cinemadb.eu-4.evennode.com/updatemovie" onsubmit="return updateMovie();">
 				<label>Update your movie.</label><br>
 				<input type="text" id="name" placeholder="Type old movie name here." required>
 				<input type="text" id="newName" placeholder="Type new movie name here." required>
