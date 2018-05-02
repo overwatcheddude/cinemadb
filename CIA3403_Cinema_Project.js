@@ -93,7 +93,7 @@ displayJSON('/horror', 'movies', {genre:"horror"});
 app.use('/static', express.static('public'));
 
 //listen for request on port 7878
-const port = 7878;
+const port = process.env.PORT || 7878;
 app.listen(port, () => {
 	console.log("server listening on " + port);
 });
