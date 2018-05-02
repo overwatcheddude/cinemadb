@@ -21,6 +21,29 @@
                 countItems.innerHTML = jsonArray.length + " movies have been found in the database.";
 				divItems.innerHTML = "";
 				
+				var table = document.getElementById('movieTable').getElementsByTagName('tbody')[0];
+                   
+				table.innerHTML = '';
+                
+				var row;
+				
+				var id = 1;
+
+                // spots is the json from rest api, we loop through them
+                for (let item of jsonArray) 
+				{
+                    row = table.insertRow(table.rows.length);
+					row.insertCell(0).innerHTML = id;
+                    row.insertCell(1).innerHTML = item.name;
+                    row.insertCell(2).innerHTML = item.genre;
+                    row.insertCell(3).innerHTML = item.rating + "/10";
+					row.insertCell(4).innerHTML = item.language;
+					row.insertCell(5).innerHTML = "<a href='#' onclick='deleteMovie(\"" + item.name + "\");'>Remove</a>";
+					
+					id++;
+                }
+				
+				/*
 				//For every item in the jsonArray.
                 for (let item of jsonArray)
                 {
@@ -33,6 +56,7 @@
                     table.innerHTML += itemString + " <a href='#' onclick='deleteMovie(\"" + item.name + "\");'>Remove</a>";
                     divItems.appendChild(table);
                 }
+				*/
             }
 			
 			//XMLHttpRequest for GET.
@@ -59,56 +83,75 @@
 			}
 		</script>
 		<!--Bootstrap code-->
-		  <meta name="viewport" content="width=device-width, initial-scale=1">
-		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
+		  <!--<meta name="viewport" content="width=device-width, initial-scale=1">
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+		  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    
+		<!--<style>
+			#movieTable td 
+			{
+				padding : 10px;
+				text-align: center;
+				
+			}
+			
+			#movieTable th 
+			{
+				padding-left: 5px;
+				padding-right: 5px;
+				text-align: center;
+			}
+		</style>-->
+	</head>
     <body>
-	<h1>
-		Database Interface
-	</h1>
-	<table>
-		<tr>
-			<th>
-				Name
-			</th>
-			<th>
-				Genre
-			</th>
-			<th>
-				Rating
-			</th>
-			<th>
-				Language
-			</th>
-		</tr>
-	</table>
-        <div id="divItems"></div>
-		<div id="countItems" style="text-decoration: underline"></div>
-<table style="border-style: solid; border-width: 1px; background-color: #eee">
-	<tr>
-		<td>
-			<form method="post" action="http://cinemadb.eu-4.evennode.com/addmovie" onsubmit="location.reload();">
-				<label>Add your movie.</label><br>
-				<input type="text" name="name" placeholder="Type the movie name here." required>
-				<input type="text" name="genre" placeholder="Insert genre here." required>
-				<input type="text" name="rating" placeholder="Insert rating here." required>
-				<input type="text" name="language" placeholder="Insert language here." required>
-				<input type="submit"></input>
-			</form>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<form method="post" action="http://cinemadb.eu-4.evennode.com/updatemovie" onsubmit="return updateMovie();">
-				<label>Update your movie.</label><br>
-				<input type="text" id="name" placeholder="Type old movie name here." required>
-				<input type="text" id="newName" placeholder="Type new movie name here." required>
-				<input type="submit"></input>
-			</form>
-		</td>
-	</tr>
-</table>
-    </body>
+	<div class="container">
+		<h1 class="display-3">
+			Movie Database
+		</h1>
+		<table id="movieTable" border="1" class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Genre</th>
+					<th scope="col">Rating</th>
+					<th scope="col">Language</th>
+					<th scope="col">Remove</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		
+			<div id="divItems"></div>
+			<div id="countItems" style="text-decoration: underline"></div>
+	
+		<table style="border-style: solid; border-width: 1px; background-color: #eee">
+			<tr>
+				<td>
+					<form method="post" action="http://cinemadb.eu-4.evennode.com/addmovie" onsubmit="location.reload();">
+						<label>Add your movie.</label><br>
+						<input type="text" name="name" placeholder="Type the movie name here." required>
+						<input type="text" name="genre" placeholder="Insert genre here." required>
+						<input type="text" name="rating" placeholder="Insert rating here." required>
+						<input type="text" name="language" placeholder="Insert language here." required>
+						<input type="submit"></input>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form method="post" action="http://cinemadb.eu-4.evennode.com/updatemovie" onsubmit="return updateMovie();">
+						<label>Update your movie.</label><br>
+						<input type="text" id="name" placeholder="Type old movie name here." required>
+						<input type="text" id="newName" placeholder="Type new movie name here." required>
+						<input type="submit"></input>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</body>
 </html>
