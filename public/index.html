@@ -18,20 +18,24 @@
                 let countItems = document.getElementById("countItems");
 
                 //Write the items count into countItems div.
-                countItems.innerHTML = "We have found " + jsonArray.length + " items.";
+                countItems.innerHTML = jsonArray.length + " movies have been found in the database.";
 				divItems.innerHTML = "";
 				
+				//For every item in the jsonArray.
                 for (let item of jsonArray)
                 {
-                    let p = document.createElement("p");
+					//Create a paragraph.
+                    let table = document.createElement("TABLE");
 					
-                    let itemString = item.name;
+					//Insert name key to itemString.
+                    let itemString = item.name + " " + item.genre + " " + item.rating + " " + item.language;
                     let pText = document.createTextNode(itemString);
-                    p.innerHTML += itemString + " <a href='#' onclick='deleteMovie(\"" + item.name + "\");'>x</a>";
-                    divItems.appendChild(p);
+                    table.innerHTML += itemString + " <a href='#' onclick='deleteMovie(\"" + item.name + "\");'>Remove</a>";
+                    divItems.appendChild(table);
                 }
             }
-
+			
+			//XMLHttpRequest for GET.
 			let httpRequest = new XMLHttpRequest();
 			httpRequest.addEventListener("load", responseHandling);
 			httpRequest.open("GET", "http://localhost:7878/");
@@ -59,9 +63,24 @@
 	<h1>
 		Database Interface
 	</h1>
-        <div id="countItems"></div>
+	<table>
+		<tr>
+			<th>
+				Name
+			</th>
+			<th>
+				Genre
+			</th>
+			<th>
+				Rating
+			</th>
+			<th>
+				Language
+			</th>
+		</tr>
+	</table>
         <div id="divItems"></div>
-
+		<div id="countItems" style="text-decoration: underline"></div>
 <table style="border-style: solid; border-width: 1px; background-color: #eee">
 	<tr>
 		<td>
