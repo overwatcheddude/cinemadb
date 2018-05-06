@@ -31,8 +31,26 @@ function displayJSON(route, filter)
 	});
 }
 
+app.post("/searchmovie/:key/:value", (req, res) => {
+	mongoClient.connect(mongoServerURL, function(err, db) {
+		if (err) console.log(err.message);
+
+		var db = db.db("cinemadb");
+
+		var key = req.params.key;
+		var value = req.params.value;
+		var myobj = {key : value};
+
+		cinemadb.collection("movies").find({myobj}).toArray((err, itemDocsArray) => {
+			if (err) console.log(err.message);
+			
+			response.send(JSON.stringify(itemDocsArray));
+		});
+	  });
+});
+
 //POST method
-app.post("/addmovie:/:name/:genre", (req, res) => {
+app.post("/addmovie", (req, res) => {
 	mongoClient.connect(mongoServerURL, function(err, db) {
 		//If there are any errors, then display error message in the console.
 		if (err) console.log(err.message);
@@ -41,11 +59,13 @@ app.post("/addmovie:/:name/:genre", (req, res) => {
 		var db = db.db("cinemadb");
 		
 		//Read from the request parameters.
-		var name = req.params.name;
-		var genre = req.params.genre;
+		var name = req.body.name;
+		var genre = req.body.genre;
+		var rating = req.body.rating;
+		var language = req.body.language;
 		
 		//Places name and genre into a variable called my object.
-		var myobj = {name, genre};
+		var myobj = {name, genre, rating, language};
 		
 		db.collection("movies").insertOne(myobj, function(err, res) {
 			if (err) console.log(err.message);
