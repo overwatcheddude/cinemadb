@@ -13,15 +13,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const mongoServerURL = "mongodb://DBUsername:123456@ds255319.mlab.com:55319/cinemadb";
 
-function displayJSON(route, collection, filter)
+function displayJSON(route, filter)
 {
+	//GET method
 	app.get(route, (request, response, next) => {
 		mongoClient.connect(mongoServerURL, (err, db) => {
 			if (err) console.log(err.message);
 			
 			const cinemadb = db.db("cinemadb");
 			
-			cinemadb.collection(collection).find(filter).toArray((err, itemDocsArray) => {
+			cinemadb.collection("movies").find(filter).toArray((err, itemDocsArray) => {
 				if (err) console.log(err.message);
 				
 				response.send(JSON.stringify(itemDocsArray));
@@ -54,6 +55,7 @@ app.post("/addmovie:/:name/:genre", (req, res) => {
 	  });
 });
 
+//DELETE method
 app.delete("/deletemovie/:name", (req, res) => {
 	mongoClient.connect(mongoServerURL, function(err, db) {
 		if (err) console.log(err.message);
@@ -68,6 +70,7 @@ app.delete("/deletemovie/:name", (req, res) => {
 	  });
 });
 
+//PUT method
 app.put("/updatemovie/:name/:newName", (req, res) => {
 	mongoClient.connect(mongoServerURL, function(err, db) {
 		if (err) console.log(err.message);
@@ -85,9 +88,8 @@ app.put("/updatemovie/:name/:newName", (req, res) => {
 	  });
 });
 
-//displayJSON('route', 'collection' {key:"value"});
-displayJSON('/', 'movies', {});
-displayJSON('/horror', 'movies', {genre:"horror"});
+//displayJSON('route', {key:"value"});
+displayJSON('/', {});
 
 //Enable a static route /static to access the HTML file.
 app.use('/static', express.static('public'));
