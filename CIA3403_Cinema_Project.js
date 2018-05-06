@@ -31,24 +31,6 @@ function displayJSON(route, filter)
 	});
 }
 
-app.post("/searchmovie/:key/:value", (req, res) => {
-	mongoClient.connect(mongoServerURL, function(err, db) {
-		if (err) console.log(err.message);
-
-		var db = db.db("cinemadb");
-
-		var key = req.params.key;
-		var value = req.params.value;
-		var myobj = {key : value};
-
-		cinemadb.collection("movies").find({myobj}).toArray((err, itemDocsArray) => {
-			if (err) console.log(err.message);
-			
-			response.send(JSON.stringify(itemDocsArray));
-		});
-	  });
-});
-
 //POST method
 app.post("/addmovie", (req, res) => {
 	mongoClient.connect(mongoServerURL, function(err, db) {
