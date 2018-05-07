@@ -38,7 +38,7 @@
                     row.insertCell(2).innerHTML = item.genre;
                     row.insertCell(3).innerHTML = item.rating + "/10";
 					row.insertCell(4).innerHTML = item.language;
-					row.insertCell(5).innerHTML = "<a href='#' onclick='deleteMovie(\"" + item.name + "\");'>Remove</a>";
+					row.insertCell(5).innerHTML = "<a href='#' onclick='deleteMovie(\"" + item.name + "\"); location.reload();'>Remove</a>";
 					
 					id++;
                 }
@@ -55,6 +55,7 @@
 				let httpRequest = new XMLHttpRequest();
 				httpRequest.open("DELETE", "http://cinemadb.eu-4.evennode.com/deletemovie/" + name);
 				httpRequest.send();
+				window.location.replace("http://cinemadb.eu-4.evennode.com/static/");
 			}
 			
 			function updateMovie()
@@ -64,6 +65,7 @@
 				let httpRequest = new XMLHttpRequest();
 				httpRequest.open("PUT", "http://cinemadb.eu-4.evennode.com/updatemovie/" + name + "/" + newName);
 				httpRequest.send();
+				window.location.replace("http://cinemadb.eu-4.evennode.com/static/");
 				return false;
 			}
 		</script>
@@ -96,7 +98,7 @@
 		<table style="border-style: solid; border-width: 1px; background-color: #eee">
 			<tr>
 				<td>
-					<form method="post" action="http://cinemadb.eu-4.evennode.com/addmovie" onsubmit="location.reload();">
+					<form method="post" action="http://cinemadb.eu-4.evennode.com/addmovie">
 						<label>Add your movie.</label><br>
 						<input type="text" name="name" placeholder="Type the movie name here." required>
 						<input type="text" name="genre" placeholder="Insert genre here." required>

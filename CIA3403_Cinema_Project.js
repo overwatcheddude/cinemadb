@@ -54,6 +54,8 @@ app.post("/addmovie", (req, res) => {
 
 			  console.log("Inserted: " + JSON.stringify(myobj));
 		});
+		//Reloads the webpage.
+		res.redirect('/static/');
 	  });
 });
 
