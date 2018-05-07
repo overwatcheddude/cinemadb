@@ -38,7 +38,7 @@
                     row.insertCell(2).innerHTML = item.genre;
                     row.insertCell(3).innerHTML = item.rating + "/10";
 					row.insertCell(4).innerHTML = item.language;
-					row.insertCell(5).innerHTML = "<a href='#' onclick='deleteMovie(\"" + item.name + "\"); location.reload();'>Remove</a>";
+					row.insertCell(5).innerHTML = "<a href='#' onclick='deleteMovie(\"" + item.name + "\");'>Remove</a>";
 					
 					id++;
                 }
@@ -100,7 +100,7 @@
 				<td>
 					<form method="post" action="http://cinemadb.eu-4.evennode.com/addmovie">
 						<label>Add your movie.</label><br>
-						<input type="text" name="name" placeholder="Type the movie name here." required>
+						<input type="text" name="name" placeholder="Insert movie name here." required>
 						<input type="text" name="genre" placeholder="Insert genre here." required>
 						<input type="text" name="rating" placeholder="Insert rating here." required>
 						<input type="text" name="language" placeholder="Insert language here." required>
