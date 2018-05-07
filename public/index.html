@@ -60,12 +60,16 @@
 			
 			function updateMovie()
 			{
-				var name = document.getElementById("name").value;
-				var newName = document.getElementById("newName").value;
+				var name = document.getElementById("reqName").value;
+				var key = document.getElementById("keyVar").value;
+				var value = document.getElementById("valueVar").value;
+				
 				let httpRequest = new XMLHttpRequest();
-				httpRequest.open("PUT", "http://cinemadb.eu-4.evennode.com/updatemovie/" + name + "/" + newName);
+				httpRequest.open("PATCH", "http://cinemadb.eu-4.evennode.com/updatemovie/?name=" + name + "&key=" + key + "&value=" + value, false);
+				httpRequest.onload = function () {
+					location.reload();
+				}
 				httpRequest.send();
-				window.location.replace("http://cinemadb.eu-4.evennode.com/static/");
 				return false;
 			}
 		</script>
@@ -163,9 +167,10 @@
 					</form>
 				</td>
 				<td>
-					<form method="post" action="http://cinemadb.eu-4.evennode.com/updatemovie" onsubmit="return updateMovie();">
-						<input class="form-control" type="text" id="name" placeholder="Type old movie name here." required>
-						<input class="form-control" type="text" id="newName" placeholder="Type new movie name here." required>
+					<form onsubmit="return updateMovie();">
+						<input class="form-control" type="text" id="reqName" placeholder="Type movie name here." required>
+						<input class="form-control" type="text" id="keyVar" placeholder="Insert key here" required>
+						<input class="form-control" type="text" id="valueVar" placeholder="Insert value here" required>
 						<input class="btn btn-secondary btn-lg btn-block" type="submit"></input>
 					</form>
 				</td>

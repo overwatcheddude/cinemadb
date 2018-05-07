@@ -75,19 +75,22 @@ app.delete("/deletemovie/:name", (req, res) => {
 });
 
 //PUT method
-app.put("/updatemovie/:name/:newName", (req, res) => {
+app.patch("/updatemovie", (req, res) => {
 	mongoClient.connect(mongoServerURL, function(err, db) {
 		if (err) console.log(err.message);
 
 		var db = db.db("cinemadb");
 		//Get names
-		var reqName = req.params.name;
-		var reqNewName = req.params.newName;
-
-		db.collection("movies").update({name: reqName}, {$set:{name: reqNewName}}, function(err,doc) {
+		var name = req.query.name;
+		var value = req.query.value;
+		var key = req.query.key;
+		
+		
+		db.collection("movies").update({name: name}, {$set:{[key]: value}}, function(err,doc) {
 			if (err) console.log(err.message);
 
-			  console.log("Updated " + reqName + " to " + reqNewName);
+			  console.log("Updated: " + name + " - " + key + " - " + value);
+			  res.redirect("/static");
 		});
 	  });
 });
