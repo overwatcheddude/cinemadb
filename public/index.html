@@ -15,10 +15,10 @@
 
                 //Read items from the webpage.
                 let divItems = document.getElementById("divItems");
-                let countItems = document.getElementById("countItems");
+                let countItems = document.getElementById("countItemsH2");
 
                 //Write the items count into countItems div.
-                countItems.innerHTML = jsonArray.length + " movies have been found in the database.";
+                countItemsH2.innerHTML = jsonArray.length + " movies have been found in the database.";
 				divItems.innerHTML = "";
 				
 				var table = document.getElementById('movieTable').getElementsByTagName('tbody')[0];
@@ -144,12 +144,11 @@
 				</blockquote>
 			</div>
 	
-		<table style="border-style: solid; border-width: 1px; background-color: #eee">
+		<table style="border-radius: 10px; margin: auto; width: 850px; background-color: #eee" id="movieTable2">
 			<thead>
 				<tr>
 					<th>Add your Movie</th>
 					<th>Update your Movie</th>
-					<th>Delete your Movie</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -161,15 +160,12 @@
 						<input class="form-control" type="text" name="rating" placeholder="Insert rating here." required>
 						<input class="form-control" type="text" name="language" placeholder="Insert language here." required>
 						<input class="btn btn-secondary btn-lg btn-block" type="submit"></input>
-						<input type="submit"></input>
 					</form>
 				</td>
-			</tr>
-			<tr>
 				<td>
 					<form method="post" action="http://cinemadb.eu-4.evennode.com/updatemovie" onsubmit="return updateMovie();">
 						<input class="form-control" type="text" id="name" placeholder="Type old movie name here." required>
-						<input class="form-control" type="text" id="newName" placeholder="Type new movie name here.*" required>
+						<input class="form-control" type="text" id="newName" placeholder="Type new movie name here." required>
 						<input class="btn btn-secondary btn-lg btn-block" type="submit"></input>
 					</form>
 				</td>
